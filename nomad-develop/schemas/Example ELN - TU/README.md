@@ -41,6 +41,7 @@ Sections:
 To visualize the relations between different sections, a UML diagram is created. The diagram clearly illustrates the hierarchical structure of the sections Experiment, Chemical, Instrument, Process, and Sample, along with their associated properties (quantities) and inheritance (base sections). 
 The Sample section contains a processes subsection, which further breaks down into detailed process sections Fluorescence_measurement and pipetting. Both these processes contain the sub-section process, referring to the defined process with its reference to the instrument. 
 Each of these sections and subsections is defined with their relevant quantities, types, and their corresponding annotations, showcasing a well-organized and comprehensive schema design. This visual aid helps to better understand the complex relationships and data flow within the schema.
-![UML](https://git.fhict.nl/coe-htsm/nomad-oasis/-/raw/main/nomad-develop/schemas/Example%20ELN%20-%20TU/UML.png)
+
+![UML](https://github.com/LarsvdBrandt/NomadRobotLab/blob/main/nomad-develop/schemas/Example%20ELN%20-%20TU/UML.png?raw=true)
 
 
