@@ -1,0 +1,10 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/0",
+        "chemical_formula": "NaCl",
+        "name": "Natrium Chloride",
+        "lab_id": "0032",
+        "form": "solid",
+        "description": "Natrium chloride, beter bekend als keukenzout, is een veelvoorkomende ionische verbinding die vaak wordt gebruikt als additief in chemische reacties en biologische experimenten om ionsterkte te regelen en osmolariteit te handhaven. Het komt voor als witte kristallen die goed oplosbaar zijn in water."
+    }
+}

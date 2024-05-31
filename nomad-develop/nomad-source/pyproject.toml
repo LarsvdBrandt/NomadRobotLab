@@ -1,0 +1,223 @@
+[build-system]
+requires = ["setuptools<69.3.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'nomad-lab'
+description = 'The NOvel MAterials Discovery (NOMAD) Python package'
+readme = "README.md"
+authors = [
+    { name = "NOMAD Laboratory", email = 'markus.scheidgen@physik.hu-berlin.de' },
+]
+dynamic = ["version"]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+
+dependencies = [
+    'aniso8601>=7.0.0',
+    'ase~=3.19.0',
+    'bitarray>=2.3.5',
+    'cachetools>=4.2.4',
+    'click>=7.1.2',
+    'docstring-parser>=0.12',
+    'elasticsearch-dsl==7.4.0',
+    'h5py>=3.6.0',
+    'hjson>=3.0.2',
+    'httpx>=0.23.3',
+    'importlib_metadata~=7.1.0',
+    'jmespath>=0.10.0',
+    'lxml>=5.2',
+    'lxml-html-clean>=0.1.0',
+    'matid>=2.0.1',
+    'mdanalysis==2.5.0',
+    'networkx==2.6.3',
+    'nptyping~=1.4.4',
+    'numpy~=1.22.4',
+    'openpyxl>=3.0.0',
+    'orjson',
+    'pandas>=1.3.5,<2.0.0',
+    'panedr>=0.2',
+    'parmed>=3.0.0',
+    'pint==0.17',
+    'pydantic>=1.10.8,<2.0.0',
+    'pymatgen>=2023.5.10',
+    'python-keycloak>=0.26.1',
+    'python-magic==0.4.24',
+    'pytz>=2022.7.1',
+    'pyyaml>=6.0',
+    'requests>=2.27.1',
+    'rfc3161ng>=2.1.3',
+    'scikit-learn>=1.0.2',
+    'scipy>=1.7.1',
+    'toposort',
+    'wrapt>=1.12.1',
+    'xarray>=0.20.2',
+    'unidecode==1.3.2',
+]
+
+[project.urls]
+homepage = "https://nomad-lab.eu/"
+documentation = "https://nomad-lab.eu/prod/v1/docs"
+repository = 'https://gitlab.mpcdf.mpg.de/nomad-lab/nomad-FAIR'
+
+[project.optional-dependencies]
+parsing = [
+    'asr==0.4.1',
+    'h5py==3.11.0',
+    'netCDF4==1.6.5',
+    'pybis@git+https://github.com/FAIRmat-NFDI/fairmat-pybis.git@91039c2a1df364c88ab7e284b59c43ec42f18370',
+    'pynxtools[convert]==0.1.1',
+    'pyzeo==0.1.5',
+    'quippy-ase==0.9.14',
+    'rdkit',
+]
+infrastructure = [
+    'asgiref~=3.5',
+    'bagit==1.8.1',
+    'basicauth==0.4.1',
+    'beautifulsoup4',
+    'celery',
+    'dockerspawner==13.0.0',
+    'elasticsearch==7.17.1',
+    'fastapi<0.100', # later versions pending pydantic v2 upgrade
+    'filelock==3.3.1',
+    'gitpython',
+    'gunicorn>=21.2.0,<22.0.0',
+    'h5grove[fastapi]==1.3.0',
+    'html5lib==1.1',
+    'inflection==0.5.1',
+    'itsdangerous>=2.1.2',
+    'jsonschema[format]==4.17.3',
+    'jupyterhub==4.0.2',
+    'm2r==0.2.1',
+    'pymongo==4.6.3',
+    'mongoengine>=0.20',
+    'msgpack',
+    'oauthenticator==15.1.0',
+    'optimade[mongo]==0.22.1',
+    'pyjwt[crypto]==2.6.0',
+    'python-json-logger==2.0.2',
+    'python-logstash==0.4.6',
+    'python-multipart',
+    'rdflib==5.0.0',
+    'recommonmark==0.7.1',
+    'runstats==2.0.0',
+    'structlog',
+    'tabulate==0.8.9',
+    'uvicorn[standard]',
+    'validators==0.18.2',
+    'zipstream-new==1.1.5',
+]
+dev = [
+    'aiosmtpd',
+    'astroid>=2.5.1',
+    'build',
+    'devtools',
+    'essential-generators==1.0',
+    'markupsafe',
+    'mkdocs-click',
+    'mkdocs-git-revision-date-localized-plugin',
+    'mkdocs-glightbox',
+    'mkdocs-macros-plugin',
+    'mkdocs-material-extensions',
+    'mkdocs-material',
+    'mkdocs-redirects',
+    'mkdocs',
+    'mypy==1.0.1', # bug: incompatible with derived models of pydantic v1
+    'names==0.3.0',
+    'pip-tools>=6.13.0',
+    'pycodestyle',
+    'pytest-cov==2.7.1',
+    'pytest-timeout==1.4.2',
+    'pytest-xdist>=1.30.0',
+    'pytest>= 5.3.0, < 6.0.0',
+    'python-gitlab==2.10.1',
+    'rope==0.21.0',
+    'ruamel.yaml',
+    'ruff',
+    'twine==3.4.2',
+    'typed-ast>=1.4.2',
+]
+
+
+[project.scripts]
+nomad = "nomad.cli:run_cli"
+
+[tool.ruff]
+include = ["nomad/*.py", "tests/*.py"]
+exclude = ["dependencies"]
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle
+    "W", # pycodestyle
+    "PL", # pylint
+]
+ignore = [
+    "E501", # Line too long ({width} > {limit} characters)
+    "E701", # Multiple statements on one line (colon)
+    "E731", # Do not assign a lambda expression, use a def
+    "E402", # Module level import not at top of file
+    "PLR0911", # Too many return statements
+    "PLR0912", # Too many branches
+    "PLR0913", # Too many arguments in function definition
+    "PLR0915", # Too many statements
+    "PLR2004", # Magic value used instead of constant
+    "PLW0603", # Using the global statement
+    "PLW2901", # redefined-loop-name
+    "PLR1714", # consider-using-in
+    "PLR5501", # else-if-used
+]
+fixable = ["ALL"]
+
+[tool.ruff.format]
+# use single quotes for strings.
+quote-style = "single"
+
+# indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+[tool.setuptools.packages.find]
+where = [
+    ".",
+    "dependencies/nomad-dos-fingerprints",
+    "dependencies/parsers/atomistic",
+    "dependencies/parsers/database",
+    "dependencies/parsers/eelsdb",
+    "dependencies/parsers/electronic",
+    "dependencies/parsers/workflow",
+    "dependencies/parsers/simulation",
+    "dependencies/schema/simulation/workflow",
+    "dependencies/schema/simulation/run",
+    "dependencies/normalizers/simulation/workflow",
+    "dependencies/normalizers/simulation/dos",
+    "dependencies/normalizers/simulation/band_structure",
+    "dependencies/normalizers/simulation/system",
+    "dependencies/normalizers/simulation/dos",
+    "dependencies/schema/simulation/run",
+    "dependencies/normalizers/simulation/soap",
+    "dependencies/normalizers/simulation/spectra",
+    "dependencies/schema/nomad-perovskite-solar-cells-database",
+]
+exclude = ["tests*"]
+namespaces = false
+
+[tool.mypy]
+strict = false
+ignore_missing_imports = true
+follow_imports = "silent"
+no_strict_optional = true
+disable_error_code = "import, annotation-unchecked"
+
+
+[tool.setuptools_scm]

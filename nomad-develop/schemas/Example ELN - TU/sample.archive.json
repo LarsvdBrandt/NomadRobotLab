@@ -1,0 +1,38 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/3",
+        "name": "ELN example sample",
+        "lab_id": "001",
+        "tags": [
+            "project"
+        ],
+        "chemicals": [
+            "../upload/raw/para-Nitrophenyl_Fosfaat.archive.json#data",
+            "../upload/raw/Natrium_Chloride.archive.json#data",
+            "../upload/raw/Histidine.archive.json#data",
+            "../upload/raw/Gedemineraliseerd_Water.archive.json#data"
+        ],
+        "processes": {
+            "pipetting": {
+                "datetime": "2024-05-23T12:20:00+00:00",
+                "instrument": "../upload/raw/Pipetting.archive.json#data",
+                "size_of_pippet": 300,
+                "number_of_wells": 96,
+                "heated_to_temperature": 80.7,
+                "time_shaken": 12,
+                "explaination": "Explaination about pipetting"
+            },
+            "fluorescence_measurement": {
+                "datetime": "2024-05-23T12:20:00+00:00",
+                "data_file": "ExemplaryDataFileFluorescence.xlsx",
+                "instrument": "../upload/raw/TecanInfinite.archive.json#data",
+                "explaination": "Explaination about fluorescence measurement"
+            },
+            "observation_conclusion": {
+                "observation": "Observation here",
+                "conclusion": "Conclusion here"
+            }
+        },
+        "description": "A sample schema for a fluorescence experiment created by Joost van Toll and Lars van den Brandt"
+    }
+}

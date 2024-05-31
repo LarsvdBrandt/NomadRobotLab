@@ -1,0 +1,408 @@
+definitions:
+  name: 'Electronic Lab Notebook TU/e Fluorescence'
+  sections:
+    Chemical:
+      # Section definition can have base_sections. Base sections are other schema
+      # definition and all properties of these will be inherited.
+      base_sections:
+        - 'nomad.datamodel.metainfo.eln.Chemical'  # Provides typical quantities like name, descriptions, chemical_formula and makes those available for search
+        - 'nomad.datamodel.data.EntryData'  # Declares this as a top-level entry section. This determines the types of entries you can create. With this we will be able to create a "Chemical" entry.
+      # All definitions, sections, sub_sections, quantities, can provide a description.
+      description: |
+        This is a a description for a Chemical.
+      # Sections define quantities. Quantities allow to manage actual data. Quantities can have various types, shapes, and units.
+      quantities:
+        form:
+          # This defines a Enum type with pre-defined possible values.
+          type:
+            type_kind: Enum
+            type_data:
+              - crystalline solid
+              - powder
+              - liquid
+          # Annotations allow to provide additional information that is beyond just defining the possible data.
+          m_annotations:
+            # The eln annotation allows add the quantity to a ELN
+            eln:
+              component: EnumEditQuantity  
+        fluorescence:
+          type: np.float64
+          m_annotations:
+            eln:
+              component: NumberEditQuantity
+    Instrument:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.Instrument # Provides typical quantities
+        - nomad.datamodel.data.EntryData # Declares this as a top-level entry section
+      description: |
+        This section captures details about the instruments used in the fluorescence experiment.
+    Process:
+      base_section: nomad.datamodel.metainfo.eln.Process # Provides typical quantities
+      quantities:
+        instrument:
+          type: Instrument # Type is Instrument, which refers to the Instrument section which is also in this schema
+          m_annotations:
+            eln:
+              component: ReferenceEditQuantity
+    Sample:
+      base_sections:
+        - 'nomad.datamodel.metainfo.eln.Sample' # Provides typical quantities
+        - 'nomad.datamodel.data.EntryData' # Declares this as a top-level entry section
+      quantities:
+        name:
+          type: str  
+          default: Default Sample Name
+          m_annotations:
+            eln:
+              component: StringEditQuantity 
+        tags:
+          type:
+            type_kind: Enum
+            type_data:
+              - internal
+              - collaboration
+              - project
+              - other
+          shape: ['*']  
+          m_annotations:
+            eln:
+              component: AutocompleteEditQuantity 
+        chemicals:
+          type: Chemical # Type is Chemical, which refers to the Chemical section which is also in this schema
+          shape: ['*']
+          m_annotations:
+            eln:
+              component: ReferenceEditQuantity  # A editor component that allows to select from available "Chemical"s
+      # Besides quantities, a section can define sub_sections. This allows hierarchies
+      # of information.
+      sub_sections:
+        # Here we define a sub_section of "Sample" called "processes"
+        processes:
+          section:
+            # The sub-section's section, is itself a section definition
+            m_annotations:
+              eln:  # adds the sub-section to the eln and allows users to create new instances of this sub-section
+            # We can also nest sub_sections.
+            quantities:
+              observation:
+                type: str
+                m_annotations:
+                  eln:
+                    component: RichTextEditQuantity 
+            sub_sections:
+              pipetting:
+                section:
+                  base_section: Process # Provides quantities from process, which is also defined in this schema
+                  m_annotations:
+                    eln:
+                      overview: true
+                      hide: ['name', 'lab_id', 'description' , 'location'] # Hides quantities that you don't want to show in the eln
+                  quantities:
+                    size_of_pippet:
+                      type: np.float64
+                      m_annotations:
+                        eln:
+                          component: NumberEditQuantity 
+                    number_of_wells:
+                      type: int
+                      m_annotations:
+                        eln:
+                          component: NumberEditQuantity
+                    heated_to_temperature:
+                      type: np.float64 
+                      unit: °C
+                      m_annotations:
+                        eln:
+                          component: NumberEditQuantity 
+                    time_shaken:
+                      type: int
+                      m_annotations:
+                        eln:
+                          component: NumberEditQuantity 
+                    explaination:
+                      type: str
+                      m_annotations:
+                         eln:
+                           component: RichTextEditQuantity
+              fluorescence_measurement:
+                section:
+                  base_sections: 
+                    - Process # Provides quantities of process, which is also defined in this schema
+                    - nomad.parsing.tabular.TableData # Provides typical quantities
+                    - nomad.datamodel.metainfo.plot.PlotSection # Provides typical quantities
+                  m_annotations:
+                    eln:
+                      overview: true
+                      hide: ['name', 'lab_id', 'description', 'method', 'location'] # Hides quantities that you don't want to show in the eln
+                    plotly_graph_object: # Define plots with data
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_115,005183333333"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_175,008883333333"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_235,01175"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_295,015116666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_355,017816666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_415,020516666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_475,023266666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_560,027566666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_595,029083333333"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_677,532916666667"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_805,038433333334"
+                          - x: "#Wavelength"
+                            y: "#Absorbance_837,54"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance
+                        label: Wavelength (nm) | Absorbance
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_0"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=0
+                        label: Wavelength (nm) | Absorbance t=0
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_115,005183333333"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=115,005183333333
+                        label: Wavelength (nm) | Absorbance t=115,005183333333
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_175,008883333333"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=175,008883333333
+                        label: Wavelength (nm) | Absorbance t=175,008883333333
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_235,01175"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=235,01175
+                        label: Wavelength (nm) | Absorbance t=235,01175
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_295,015116666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=295,015116666667
+                        label: Wavelength (nm) | Absorbance t=295,015116666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_355,017816666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=355,017816666667
+                        label: Wavelength (nm) | Absorbance t=355,017816666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_415,020516666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=415,020516666667
+                        label: Wavelength (nm) | Absorbance t=415,020516666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_475,023266666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=475,023266666667
+                        label: Wavelength (nm) | Absorbance t=475,023266666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_560,027566666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=560,027566666667
+                        label: Wavelength (nm) | Absorbance t=560,027566666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_595,029083333333"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=595,029083333333
+                        label: Wavelength (nm) | Absorbance t=595,029083333333
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_677,532916666667"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=677,532916666667
+                        label: Wavelength (nm) | Absorbance t=677,532916666667
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_805,038433333334"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=805,038433333334
+                        label: Wavelength (nm) | Absorbance t=805,038433333334
+                      - data:
+                          - x: "#Wavelength"
+                            y: "#Absorbance_837,54"
+                        layout:
+                          title:
+                            text: Wavelength (nm) | Absorbance t=837,54
+                        label: Wavelength (nm) | Absorbance t=837,54
+                  quantities:
+                    explaination:
+                      type: str
+                      m_annotations:
+                         eln:
+                           component: RichTextEditQuantity
+                    data_file: # Define data file to feed plot
+                      type: str
+                      description: |
+                        A reference to an uploaded .csv produced by instruments.
+                      m_annotations:
+                        tabular_parser:
+                          parsing_options:
+                            sep: '\t'
+                            comment: '#'
+                        browser:
+                          adaptor: RawFileAdaptor  # Allows to navigate to files in the data browser
+                        eln:
+                          component: FileEditQuantity  # A form field that allows to drop and select files.
+                          # Define all properties for in the plot
+                    Wavelength: # Name as shown in plot
+                      type: int
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: Wavelength (nm) # Column name in table
+                    Absorbance:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=0
+                    Absorbance_115,005183333333:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=115,005183333333
+                    Absorbance_175,008883333333:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=175,008883333333
+                    Absorbance_235,01175:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=235,01175
+                    Absorbance_295,015116666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=295,015116666667
+                    Absorbance_355,017816666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=355,017816666667
+                    Absorbance_415,020516666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=415,020516666667
+                    Absorbance_475,023266666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=475,023266666667
+                    Absorbance_560,027566666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=560,027566666667
+                    Absorbance_595,029083333333:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=595,029083333333
+                    Absorbance_677,532916666667:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=677,532916666667
+                    Absorbance_805,038433333334:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=805,038433333334
+                    Absorbance_837,54:
+                      type: np.float64
+                      shape: ['*']
+                      m_annotations:
+                        tabular:
+                          name: t=837,54
+              observation_conclusion:
+                section:
+                  base_section: Process # Provides quantities of process, which is also in this schema
+                  m_annotations:
+                    eln:
+                      overview: true
+                      hide: ['name', 'lab_id', 'description', 'instrument', 'datetime', 'location', 'ending_datetime'] # Hides quantities that you don't want to show in the eln
+                  quantities:
+                    observation:
+                      type: str
+                      m_annotations:
+                         eln:
+                           component: RichTextEditQuantity
+                    conclusion:
+                      type: str
+                      m_annotations:
+                         eln:
+                           component: RichTextEditQuantity
+    Experiment:
+      base_sections:
+        - 'nomad.datamodel.data.EntryData' # Declares this as a top-level entry section
+      quantities:
+        name:
+          type: str
+          default: Default Experiment Name
+          m_annotations:
+            eln:
+              component: StringEditQuantity
+        experiment_description:
+          type: str
+          m_annotations:
+            eln:
+              component: RichTextEditQuantity
+        experiment_visual:
+          type: str
+          m_annotations:
+            eln:
+              component: RichTextEditQuantity
+        sample:
+          type: Sample # Type is Sample, which refers to the Sample section which is also in this schema
+          shape: ['*']
+          m_annotations:
+            eln:
+              overview: true
+              component: ReferenceEditQuantity

@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "domain": "dft",
+        "raw_id": "test_id"
+    },
+    "results": {
+        "material": {
+            "chemical_formula_descriptive": "H2O",
+            "elements": ["H", "O"]
+        },
+        "method": {
+            "method_name": "DFT"
+        }
+    }
+}

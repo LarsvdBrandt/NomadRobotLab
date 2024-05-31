@@ -1,0 +1,10 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/4",
+        "name": "ELN Fluorescence experiment",
+        "experiment_description": "Fluorescence experiment, explain the goal of the experiment here",
+        "experiment_visual": "<p><img src=\"https://www.uu.nl/sites/default/files/image_for_the_press_release.jpg\" alt=\"Experiment Visual\" width=\"500\" height=\"348\" /></p>",
+        "sample":  ["../upload/raw/sample.archive.json#data"],
+        "description": "A sample schema for a fluorescence experiment created by Joost van Toll and Lars van den Brandt"
+    }
+}

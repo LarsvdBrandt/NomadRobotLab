@@ -1,0 +1,12 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/0",
+        "chemical_formula": "H2O",
+        "name": "Water",
+        "lab_id": "0026",
+        "form": "liquid",
+        "cas_number": "7732-18-5",
+        "ec_number": "231-106-4",
+        "description": "<p><strong>Water</strong> is a transparent liquid that covers most of Earth's surface. It is essential for life and is a major constituent of living organisms.</p>"
+    }
+}

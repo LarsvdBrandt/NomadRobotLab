@@ -1,0 +1,10 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/0",
+        "chemical_formula": "H2O",
+        "name": "Gedemineraliseerd Water",
+        "lab_id": "0029",
+        "form": "liquid",
+        "description": "Gedemineraliseerd water is water waaruit de mineralen zijn verwijderd, wat resulteert in zuiver water zonder ionen. Het wordt vaak gebruikt in laboratoria en industriële processen om contaminatie te voorkomen."
+    }
+}

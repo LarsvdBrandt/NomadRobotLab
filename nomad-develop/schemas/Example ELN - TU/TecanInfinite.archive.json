@@ -1,0 +1,8 @@
+{
+    "data": {
+        "m_def": "../upload/raw/schema.archive.yaml#/definitions/section_definitions/1",
+        "name": "Tecan Infinite M+ Nano",
+        "lab_id": "I-03",
+        "description": "Fluorescence measurement"
+    }
+}

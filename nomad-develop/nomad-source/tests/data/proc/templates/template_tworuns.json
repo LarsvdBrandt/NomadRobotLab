@@ -1,0 +1,185 @@
+{
+    "run": [
+        {
+            "m_def": "runschema.run.Run",
+            "program": {
+                "name": "VASP",
+                "version": "4.6.35  3Apr08 complex  parallel LinuxIFC"
+            },
+            "method": [
+                {
+                    "dft": {
+                        "xc_functional": {
+                            "exchange": [
+                                {
+                                    "name": "GGA_X_PBE"
+                                }
+                            ]
+                        }
+                    },
+                    "electronic": {
+                        "method": "DFT"
+                    },
+                    "basis_set": [
+                        {
+                            "type": "plane waves"
+                        }
+                    ]
+                }
+            ],
+            "system": [
+                {
+                    "atoms": {
+                        "labels": [
+                            "Si",
+                            "Si"
+                        ],
+                        "positions": [
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                1.3661901828253802e-10,
+                                -1.36619021014927e-10,
+                                -1.36619021014927e-10
+                            ]
+                        ],
+                        "lattice_vectors": [
+                            [
+                                2.732389e-10,
+                                -2.732389e-10,
+                                0.0
+                            ],
+                            [
+                                -2.732389e-10,
+                                0.0,
+                                -2.732389e-10
+                            ],
+                            [
+                                2.732389e-10,
+                                2.732389e-10,
+                                0.0
+                            ]
+                        ],
+                        "periodic": [
+                            true,
+                            true,
+                            true
+                        ]
+                    }
+                }
+            ],
+            "calculation": [
+                {
+                    "system_ref": "/run/0/system/0",
+                    "method_ref": "/run/0/method/0",
+                    "energy": {
+                        "total": {
+                            "value": -1.5935696296699573e-18
+                        },
+                        "free": {
+                            "value": -1.5936767191492225e-18
+                        },
+                        "total_t0": {
+                            "value": -3.2126683561907e-22
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "program": {
+                "name": "VASP",
+                "version": "4.6.35  3Apr08 complex  parallel LinuxIFC"
+            },
+            "method": [
+                {
+                    "dft": {
+                        "xc_functional": {
+                            "exchange": [
+                                {
+                                    "name": "GGA_X_PBE"
+                                }
+                            ]
+                        }
+                    },
+                    "electronic": {
+                        "method": "DFT"
+                    },
+                    "basis_set": [
+                        {
+                            "type": "plane waves"
+                        }
+                    ]
+                }
+            ],
+            "system": [
+                {
+                    "atoms": {
+                        "labels": [
+                            "Si",
+                            "Si"
+                        ],
+                        "positions": [
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                1.3661901828253802e-10,
+                                -1.36619021014927e-10,
+                                -1.36619021014927e-10
+                            ]
+                        ],
+                        "lattice_vectors": [
+                            [
+                                2.732389e-10,
+                                -2.732389e-10,
+                                0.0
+                            ],
+                            [
+                                -2.732389e-10,
+                                0.0,
+                                -2.732389e-10
+                            ],
+                            [
+                                2.732389e-10,
+                                2.732389e-10,
+                                0.0
+                            ]
+                        ],
+                        "periodic": [
+                            true,
+                            true,
+                            true
+                        ]
+                    }
+                }
+            ],
+            "calculation": [
+                {
+                    "system_ref": "/run/1/system/0",
+                    "method_ref": "/run/1/method/0",
+                    "energy": {
+                        "total": {
+                            "value": -1.5935696296699573e-18
+                        },
+                        "free": {
+                            "value": -1.5936767191492225e-18
+                        },
+                        "total_t0": {
+                            "value": -3.2126683561907e-22
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "workflow2": {
+        "m_def": "simulationworkflowschema.geometry_optimization.GeometryOptimization",
+        "name": "Geometry Optimization"
+    }
+}
