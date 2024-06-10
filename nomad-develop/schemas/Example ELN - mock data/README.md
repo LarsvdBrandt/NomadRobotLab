@@ -35,7 +35,8 @@ This folder contains an example schema to test functionalities of schema definit
 
 ### UML
 To visualize the relations between different sections, a UML diagram is created. 
-![UML](https://git.fhict.nl/coe-htsm/nomad-oasis/-/raw/main/nomad-develop/schemas/Example%20ELN%20-%20mock%20data/UML.png)
+![UML](https://github.com/LarsvdBrandt/NomadRobotLab/assets/57895338/665a6f1a-61d3-4fc2-adc4-6a3fb6abf078)
+
 
 
 Consult the [documentation on the NOMAD Archive and Metainfo](https://nomad-lab.eu/prod/v1/docs/archive.html) to learn more about schemas.
